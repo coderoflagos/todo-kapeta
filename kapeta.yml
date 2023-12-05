@@ -1,0 +1,70 @@
+kind: core/plan
+metadata:
+  name: opemipo_disu/opemipo-plan
+  visibility: private
+  description: ""
+  title: Opemipo's Plan
+spec:
+  blocks:
+    - block:
+        ref: kapeta://opemipo_disu/todo-service:local
+      dimensions:
+        height: -1
+        width: 150
+        left: 220
+        top: 259.33333333333337
+      id: 8245de29-51c6-41f5-a025-2e5c16706c7b
+      name: To-do Service
+    - block:
+        ref: kapeta://opemipo_disu/todo-ui:local
+      dimensions:
+        height: -1
+        width: 150
+        left: 738.3333333333334
+        top: 264.6666666666667
+      id: 199676fc-aa7f-45df-9a6e-77612cf6caf8
+      name: To-do UI
+    - block:
+        ref: kapeta://opemipo_disu/todo-gateway:local
+      dimensions:
+        height: -1
+        width: 150
+        left: 535.5
+        top: 511
+      id: 60d9a4bd-26f7-41fd-b6c4-c09aebc81826
+      name: Todo gateway
+  connections:
+    - provider:
+        resourceName: todoapi
+        blockId: 8245de29-51c6-41f5-a025-2e5c16706c7b
+      consumer:
+        resourceName: todoapi
+        blockId: 199676fc-aa7f-45df-9a6e-77612cf6caf8
+      port:
+        name: rest
+        type: rest
+      mapping:
+        getAllTasks:
+          targetId: getAllTasks
+          type: EXACT
+        addNewTask:
+          targetId: addNewTask
+          type: EXACT
+        deleteAllTasks:
+          targetId: deleteAllTasks
+          type: EXACT
+        deleteSingleTask:
+          targetId: deleteSingleTask
+          type: EXACT
+        editTask:
+          targetId: editTask
+          type: EXACT
+    - provider:
+        resourceName: todolist
+        blockId: 199676fc-aa7f-45df-9a6e-77612cf6caf8
+      consumer:
+        resourceName: todolist
+        blockId: 60d9a4bd-26f7-41fd-b6c4-c09aebc81826
+      port:
+        name: http
+        type: web
